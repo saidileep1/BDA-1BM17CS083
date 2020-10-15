@@ -1,0 +1,29 @@
+> use myDB
+
+> db.createCollection("Country")
+
+> db.Country.insert({_id:1,Cities:["Visakhapatnam","Hyderabad"]})
+> db.Country.insert({_id:2,Cities:["Pune","Mumbai"]})
+> db.Country.insert({_id:2,Cities:["Bangalore","Chennai"]})
+> db.Country.insert({_id:3,Cities:["Bangalore","Chennai"]})
+> db.Country.insert({_id:4,Cities:["Mysore","Tirupathi"]})
+
+> db.Country.find()
+
+> db.Country.find().limit(1)
+> db.Country.find().skip(2).limit(2)
+
+> db.Country.update({_id:1},{$push:{population:{Visakhapatnam:45,Hyderabad:50}}})
+> db.Country.find()
+
+> db.Country.update({_id:3},{$pop:{Cities:1}})
+> db.Country.find()
+
+> db.Country.update({Cities:"Pune"},{$pull:{Cities:'Pune'}})
+> db.Country.find()
+
+> db.Country.update({_id:1},{$set:{'Cities.2':'Srinagar'}})
+> db.Country.find()
+
+> db.Country.update({_id:2},{$addToSet:{Cities:"Jaipur"}})
+> db.Country.find()
