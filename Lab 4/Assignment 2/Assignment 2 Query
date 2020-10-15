@@ -1,29 +1,19 @@
-> use myDB
+##In Mongo Shell
 
-> db.createCollection("Country")
+> use mongoDB
+switched to db mongoDB
+> db.createCollection("MongoDBHandsOn")
 
-> db.Country.insert({_id:1,Cities:["Visakhapatnam","Hyderabad"]})
-> db.Country.insert({_id:2,Cities:["Pune","Mumbai"]})
-> db.Country.insert({_id:2,Cities:["Bangalore","Chennai"]})
-> db.Country.insert({_id:3,Cities:["Bangalore","Chennai"]})
-> db.Country.insert({_id:4,Cities:["Mysore","Tirupathi"]})
+> db.MongoDBHandsOn.aggregate([
+...     { $group : { _id: null, sum: {$sum:"$children"} } }
+... ])
 
-> db.Country.find()
+> db.MongoDBHandsOn.aggregate([
+...     { $group : { _id: "Avg of Age", avg: {$avg:"$age"} } }
+... ])
 
-> db.Country.find().limit(1)
-> db.Country.find().skip(2).limit(2)
 
-> db.Country.update({_id:1},{$push:{population:{Visakhapatnam:45,Hyderabad:50}}})
-> db.Country.find()
 
-> db.Country.update({_id:3},{$pop:{Cities:1}})
-> db.Country.find()
+##In CommandPrompt
 
-> db.Country.update({Cities:"Pune"},{$pull:{Cities:'Pune'}})
-> db.Country.find()
-
-> db.Country.update({_id:1},{$set:{'Cities.2':'Srinagar'}})
-> db.Country.find()
-
-> db.Country.update({_id:2},{$addToSet:{Cities:"Jaipur"}})
-> db.Country.find()
+mongoimport -d mongoDB -c MongoDBHandsOn --type csv --headerline --file "C:\Users\Saitama\Documents\V\bank-data.csv"
